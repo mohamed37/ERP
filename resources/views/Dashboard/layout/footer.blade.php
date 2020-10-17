@@ -97,7 +97,7 @@ $.ajaxSetup({
           // console.log(typeof(data));
           //data = JSON.parse(data.data);
            console.log(data);
-           //alert(data);
+          //alert(data);
           $('#cont-data').html(data);
           
         },
@@ -115,6 +115,7 @@ $.ajaxSetup({
       $(document).on('click', '#multidelete', function () { 
                 var ids = [];
                 var form = $(this).parent();
+            //alert(form);
                 
                 $('#cont-data :checkbox:checked').each(function(i){
                   

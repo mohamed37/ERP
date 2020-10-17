@@ -30,7 +30,7 @@ Route::group(
 
 
 
-       Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
+       Route::group(['prefix' => 'admin','middleware'=>'auth', 'namespace' => 'Backend'], function () {
         //ROUTE HOMECONTROLLER
         Route::get('/home', 'HomeController@index')->name('home');
         Route::get('Dashboard', 'HomeController@indexDashboard')->name('dashboardHome');
@@ -44,6 +44,8 @@ Route::group(
 
             // ROUTE Employee
         Route::resource('employees', 'EmployeeController');
+        Route::get('rows/employee', 'EmployeeController@rows')->name('rowsemployee');
+        Route::get('multi-delete', 'EmployeeController@multidelete')->name('multidelete-employee');
        });
 
        //ROUTE FOR FORNTEND

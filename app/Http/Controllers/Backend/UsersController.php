@@ -22,8 +22,8 @@ class UsersController extends Controller
 //        $this->middleware(['permission:create-users'])->only('create');
 //        $this->middleware(['permission:update-users'])->only('update');
 //        $this->middleware(['permission:delete-users'])->only('destroy');
-//
-//     
+
+     
     }//end of constructor
      
      

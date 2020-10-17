@@ -42,7 +42,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-eye-slash show-pass"></i>
                                 </div>
-                                    <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" name="password" minlength="8">
+                                    <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" name="password" minlength="6">
 
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">

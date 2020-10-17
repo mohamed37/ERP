@@ -19,6 +19,26 @@ class EmployeeController extends Controller
             $employees=Employee::paginate(10);
           return view('Dashboard.employee.index',compact('employees'));
     }
+     public function rows(Request $request)
+    { 
+     if($request->ajax())
+     {
+       $employees = Employee::when($request->search, function($q) use($request){
+            return $q->where('name', 'Like','%'. $request->search . '%')
+                     ->orWhere('age', 'Like','%'. $request->search . '%')
+                    ->orWhere('idcard', 'Like','%'. $request->search . '%')
+                    ->orWhere('profession', 'Like','%'. $request->search . '%');
+                    })->orderBy('name', 'desc')->paginate(5);
+            
+            return view('Dashboard.employee.rows')->with('employees', $employees);
+            
+           //return response()->json($users, 200);
+      } else {
+          
+          return view('Dashboard.employee.index', compact('employees'));
+      }   
+          
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -166,4 +186,25 @@ class EmployeeController extends Controller
 
         return redirect()->route('employees.index');
 }
+     public function multidelete(Request $request)
+    {
+            $ids =  $request->ids;
+            
+            //dd($ids);
+            
+            $employees = Employee::whereIn('id',  explode(",",$ids))->get();
+            foreach($employees as $employee) 
+            {
+                
+               // dd($employees);
+                
+                    Storage::disk('public_uploads')->delete('/employee_cv/' . $employee->cv);    
+                    $employee->delete();
+                
+                
+            }       
+        session()->flash('success', __('site.deleted_successfully'));
+           
+            return redirect()->route('employees.index');
+    } // end of destroy multi rows
 }
